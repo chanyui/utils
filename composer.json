@@ -1,0 +1,20 @@
+{
+  "name": "yc/utils",
+  "description": "a tools library",
+  "authors": [
+    {
+      "name": "yuriychan"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "yc\\": "src/"
+    },
+    "files": [
+    ]
+  }
+}
