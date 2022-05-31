@@ -1,0 +1,10 @@
+.idea/
+*.phar
+*.zip
+phpunit.xml
+phpunit.functional.xml
+.DS_Store
+.swp
+.build
+composer.lock
+vendor
