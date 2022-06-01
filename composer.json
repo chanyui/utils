@@ -1,6 +1,10 @@
 {
   "name": "chanyu/utils",
   "description": "a tools library",
+  "keywords": [
+    "utils",
+    "php"
+  ],
   "authors": [
     {
       "name": "yuriychan"
