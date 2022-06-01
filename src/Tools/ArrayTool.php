@@ -1,7 +1,6 @@
 <?php
 
-namespace yc\Tools;
-
+namespace chanyu\Tools;
 
 class ArrayTool
 {

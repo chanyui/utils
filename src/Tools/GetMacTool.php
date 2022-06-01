@@ -1,6 +1,6 @@
 <?php
 
-namespace yc\Tools;
+namespace chanyu\Tools;
 
 class GetMacTool
 {
@@ -10,10 +10,10 @@ class GetMacTool
 
     public function __construct($OS)
     {
-        self::GetMac($OS);
+        self::getMac($OS);
     }
 
-    public static function GetMac($OS)
+    public static function getMac($OS)
     {
         switch (strtolower($OS)) {
             case "unix":

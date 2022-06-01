@@ -1,6 +1,6 @@
 <?php
 
-namespace yc\Tools;
+namespace chanyu\Tools;
 
 class StringTool
 {
@@ -108,44 +108,6 @@ class StringTool
             }
         }
         return $result;
-    }
-
-    /**
-     * 播放视频防盗链签名
-     *
-     * @author yc
-     * @param $url
-     * @param $duration
-     * @return string
-     */
-    public static function signVideoUrl($url, $duration)
-    {
-        // URL 过期时间。按 unix_time 的 16进制小写形式表示
-        $time = time() + $duration;
-        $t = dechex($time);
-
-        // 解析path
-        $pathUrl = parse_url($url);
-        $pathArr = array_filter(explode('/', $pathUrl['path']));
-
-        //访问资源的 URL 中的路径部分,斜线 / 不编码,注意不含 querystring 部分
-        $path = '';
-        foreach ($pathArr as $value) {
-            $path .= '/' . urlencode($value);
-        }
-
-        // 在开启时间戳防盗链时，可以由七牛提供
-        $key = config('qiniu_timestamp_sign_key');
-
-        // 签名算法
-        $sign = strtolower(md5($key . ($path) . $t));
-
-        if (isset($pathUrl['query']) && $pathUrl['query']) {
-            $url = $pathUrl['scheme'] . '://' . $pathUrl['host'] . $path . '?' . $pathUrl['query'] . '&sign=' . $sign . '&t=' . $t;
-        } else {
-            $url = $pathUrl['scheme'] . '://' . $pathUrl['host'] . $path . '?sign=' . $sign . '&t=' . $t;
-        }
-        return $url;
     }
 
     /**
@@ -348,8 +310,6 @@ class StringTool
         if ($asc >= -11055 && $asc <= -10247) return 'Z';
         return null;
     }
-
-
 
 ###############################################加密、随机字符串相关#########################################################
 
@@ -611,8 +571,6 @@ class StringTool
         }
     }
 
-
-
 ####################################################身份证相关############################################################
 
     /**
@@ -658,24 +616,23 @@ class StringTool
      * 检测身份证信息
      *
      * @author yc
-     * @param $realname
      * @param $idcard
      * @return array
      */
-    public static function checkRealname($realname, $idcard)
+    public static function get_check_idcard($idcard)
     {
         if (!self::isIdCard($idcard)) {
-            return ['code' => 100, 'msg' => '身份证号不正确！', 'data' => []];
+            return [false, [], '身份证号不正确！'];
         }
         $sex = self::getSexByIdCard($idcard);
-        $birthday = self::getBirthDayByIdCard($idcard);
+        $birthday = self::get_birthday_by_idcard($idcard);
         $address = self::get_address_by_idcard($idcard);
         $data = [
             'sex'      => $sex,
             'birthday' => $birthday,
             'area'     => $address,
         ];
-        return ['code' => 200, 'data' => $data];
+        return [true, $data, '成功'];
     }
 
     /**
@@ -715,7 +672,7 @@ class StringTool
      * @param string $idcard 身份证号码
      * @return $birthday
      */
-    public static function getBirthDayByIdCard($idcard)
+    public static function get_birthday_by_idcard($idcard)
     {
         if (empty($idcard)) return null;
         $bir = substr($idcard, 6, 8);
@@ -736,10 +693,10 @@ class StringTool
     {
         if ($type == 1) {
             $index = substr($idcard, 0, 6);
-            $addressArr = config('addrIdCard.address');
+            $addressArr = getAddrIdCard()['address'];
         } else {
             $index = substr($idcard, 0, 2);
-            $addressArr = config('addrIdCard.province');
+            $addressArr = getAddrIdCard()['province'];
         }
         return isset($addressArr[$index]) ? $addressArr[$index] : '';
     }
@@ -781,8 +738,6 @@ class StringTool
             return 1;
         }
     }
-
-
 
 ###################################################时间日期相关############################################################
 
@@ -964,26 +919,5 @@ class StringTool
             $ip = "Unknow";
         }
         return $ip;
-    }
-
-    /**
-     * 替换图片的地址
-     *
-     * @author yc
-     * @param mixed $imageUrl
-     * @param string $originUrl
-     * @param string $replaceUrl cdn地址
-     */
-    public static function replaceImageUrl($imageUrl, $originUrl = '', $replaceUrl = '')
-    {
-        $config = config('aliyun.sts_upload');
-        $originUrl = $originUrl ?: $config['bucket'] . '.' . $config['region'] . '.aliyuncs.com';
-        $replaceUrl = $replaceUrl ?: $config['host'];
-
-        if ($imageUrl && $originUrl && $replaceUrl) {
-            return str_replace($originUrl, $replaceUrl, $imageUrl);
-        } else {
-            return $imageUrl;
-        }
     }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "ychan/utils",
+  "name": "chanyu/utils",
   "description": "a tools library",
   "authors": [
     {
@@ -12,9 +12,10 @@
   },
   "autoload": {
     "psr-4": {
-      "yc\\": "src/"
+      "chanyu\\": "src/"
     },
     "files": [
+      "src/Tools/AddrIdCard.php"
     ]
   }
 }
