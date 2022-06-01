@@ -1,2 +1,6 @@
-# utils
-a tools library
+# Utils
+
+### Installation
+```bash
+$ composer require chanyu/utils
+```
