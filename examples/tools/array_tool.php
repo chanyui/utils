@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../../autoload.php';
 
-use chanyu\utils\Tools\ArrayTool;
+use Chanyu\Utils\Tools\ArrayTool;
 
 $array = [
     ['id' => 1, 'name' => '测试1'],

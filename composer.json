@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "chanyu\\utils\\": "src/"
+      "Chanyu\\Utils\\": "src/"
     },
     "files": [
       "src/Tools/AddrIdCard.php"

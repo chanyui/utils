@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../../autoload.php';
 
-use chanyu\utils\Tools\StringTool;
+use Chanyu\Utils\Tools\StringTool;
 
 var_dump(StringTool::authcode('123456', 'ENCODE'));
 

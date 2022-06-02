@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../../autoload.php';
 
-use chanyu\utils\Tools\GenerateTool;
+use Chanyu\Utils\Tools\GenerateTool;
 
 var_dump(GenerateTool::buildOrderSn());
 

@@ -1,7 +1,6 @@
 <?php
 
-namespace chanyu\utils\Snowflake;
-
+namespace Chanyu\Utils\Snowflake;
 
 class Snowflake
 {
