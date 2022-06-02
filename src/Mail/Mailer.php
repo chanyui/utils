@@ -2,6 +2,7 @@
 
 namespace chanyu\Mail;
 
+use chanyu\Tools\ArrayTool;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
@@ -70,15 +71,14 @@ class Mailer extends Config implements Contract
             $this->mail->setFrom($this->config['from'], $this->config['name']);
 
             // to
-            foreach ($tomail as $value) {
-                if (is_array($value)) {
-                    foreach ($value as $val) {
-                        $name = isset($val['name']) ? $val['name'] : '';
-                        $this->mail->addAddress($val['address'], $name);
-                    }
-                } else {
-                    $name = isset($tomail['name']) ? $tomail['name'] : '';
-                    $this->mail->addAddress($tomail['address'], $name);
+            $to_deep = ArrayTool::deep_array($tomail);
+            if ($to_deep == 1) {
+                $name = isset($tomail['name']) ? $tomail['name'] : '';
+                $this->mail->addAddress($tomail['address'], $name);
+            } else {
+                foreach ($tomail as $value) {
+                    $name = isset($value['name']) ? $value['name'] : '';
+                    $this->mail->addAddress($value['address'], $name);
                 }
             }
 
@@ -90,15 +90,14 @@ class Mailer extends Config implements Contract
 
             // cc
             if ($cc) {
-                foreach ($cc as $value) {
-                    if (is_array($value)) {
-                        foreach ($value as $val) {
-                            $cname = isset($val['name']) ? $val['name'] : '';
-                            $this->mail->addCC($val['address'], $cname);
-                        }
-                    } else {
-                        $cname = isset($cc['name']) ? $cc['name'] : '';
-                        $this->mail->addCC($cc['address'], $cname);
+                $cc_deep = ArrayTool::deep_array($cc);
+                if ($cc_deep == 1) {
+                    $cname = isset($cc['name']) ? $cc['name'] : '';
+                    $this->mail->addCC($cc['address'], $cname);
+                } else {
+                    foreach ($cc as $value) {
+                        $cname = isset($value['name']) ? $value['name'] : '';
+                        $this->mail->addCC($value['address'], $cname);
                     }
                 }
             }
@@ -107,15 +106,14 @@ class Mailer extends Config implements Contract
 
             // Attachments
             if ($attachment) {                                              //Add attachments Optional name
-                foreach ($attachment as $value) {
-                    if (is_array($value)) {
-                        foreach ($value as $val) {
-                            $aname = isset($val['name']) ? $val['name'] : '';
-                            $this->mail->addAttachment($val['path'], $aname);
-                        }
-                    } else {
-                        $aname = isset($attachment['name']) ? $attachment['name'] : '';
-                        $this->mail->addAttachment($attachment['path'], $aname);
+                $att_deep = ArrayTool::deep_array($attachment);
+                if ($att_deep == 1) {
+                    $aname = isset($attachment['name']) ? $attachment['name'] : '';
+                    $this->mail->addAttachment($attachment['path'], $aname);
+                } else {
+                    foreach ($attachment as $value) {
+                        $aname = isset($value['name']) ? $value['name'] : '';
+                        $this->mail->addAttachment($value['path'], $aname);
                     }
                 }
             }

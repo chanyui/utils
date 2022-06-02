@@ -3,6 +3,8 @@
 namespace chanyu\Mail;
 
 
+use chanyu\Tools\ArrayTool;
+
 class Config
 {
     protected $config = [
@@ -33,21 +35,23 @@ class Config
         if (!is_array($tomail)) {
             return 'Message could not be sent：tomail error!';
         }
-        foreach ($tomail as $value) {
-            if (is_array($value)) {
-                foreach ($value as $val) {
-                    $keys = array_keys($val);
-                    if (array_diff($addressArr, $keys)) {
-                        return 'Message could not be sent：tomail name and address not empty！';
-                    }
-                }
-            } else {
-                $keys = array_keys($tomail);
+
+        // 判断是一维数组还是二维数组
+        $tomail_deep = ArrayTool::deep_array($tomail);
+        if ($tomail_deep == 1) {
+            $keys = array_keys($tomail);
+            if (array_diff($addressArr, $keys)) {
+                return 'Message could not be sent：tomail name and address not empty';
+            }
+        } else {
+            foreach ($tomail as $value) {
+                $keys = array_keys($value);
                 if (array_diff($addressArr, $keys)) {
-                    return 'Message could not be sent：tomail name and address not empty';
+                    return 'Message could not be sent：tomail name and address not empty!';
                 }
             }
         }
+
         // 判断内容是否正确
         $bkeys = array_keys($body);
         if (array_diff(['subject', 'body'], $bkeys)) {
@@ -62,19 +66,18 @@ class Config
         }
         // 抄送
         if ($cc && is_array($cc)) {
+            $cc_deep = ArrayTool::deep_array($cc);
             $caddress = ['address'];
-            foreach ($cc as $value) {
-                if (is_array($value)) {
-                    foreach ($value as $val) {
-                        $keys = array_keys($val);
-                        if (array_diff($caddress, $keys)) {
-                            return 'Message could not be sent：cc name and address not empty!';
-                        }
-                    }
-                } else {
-                    $keys = array_keys($cc);
+            if ($cc_deep == 1) {
+                $keys = array_keys($cc);
+                if (array_diff($caddress, $keys)) {
+                    return 'Message could not be sent：cc name and address not empty';
+                }
+            } else {
+                foreach ($cc as $value) {
+                    $keys = array_keys($value);
                     if (array_diff($caddress, $keys)) {
-                        return 'Message could not be sent：cc name and address not empty';
+                        return 'Message could not be sent：cc name and address not empty!';
                     }
                 }
             }
@@ -83,23 +86,21 @@ class Config
         // 附件
         if ($attachment && is_array($attachment)) {
             $aaddress = ['path'];
-            foreach ($attachment as $value) {
-                if (is_array($value)) {
-                    foreach ($value as $val) {
-                        $keys = array_keys($val);
-                        if (array_diff($aaddress, $keys)) {
-                            return 'Message could not be sent：attachment path not empty!';
-                        }
-                    }
-                } else {
-                    $keys = array_keys($attachment);
+            $att_deep = ArrayTool::deep_array($attachment);
+            if ($att_deep == 1) {
+                $keys = array_keys($attachment);
+                if (array_diff($aaddress, $keys)) {
+                    return 'Message could not be sent：attachment path not empty';
+                }
+            } else {
+                foreach ($attachment as $value) {
+                    $keys = array_keys($value);
                     if (array_diff($aaddress, $keys)) {
-                        return 'Message could not be sent：attachment path not empty';
+                        return 'Message could not be sent：attachment path not empty!';
                     }
                 }
             }
         }
         return true;
     }
-
 }

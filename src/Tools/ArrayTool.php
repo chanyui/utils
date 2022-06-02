@@ -515,6 +515,25 @@ class ArrayTool
     }
 
     /**
+     * 判断是否为二维数组
+     *
+     * @author yc
+     * @param $array
+     * @return int 0-非数组，1-一维数组，2-二维数组
+     */
+    public static function deep_array($array)
+    {
+        if (!is_array($array)) {
+            return 0;
+        }
+        if (count($array) == count($array, COUNT_RECURSIVE)) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    /**
      * 根据视频总时长计算核验的时间点
      * $duration（秒） 总时长
      * $memory_time（秒） 上次观看的时长
