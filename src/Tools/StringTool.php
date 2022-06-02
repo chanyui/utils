@@ -920,4 +920,27 @@ class StringTool
         }
         return $ip;
     }
+
+    /**
+     * 日期转大写
+     * @param int $date 时间戳
+     * @param string $format 时间格式
+     * @return array   array('二零一五','十','二十八')
+     */
+    public static function dateToCapital($date, $format = 'Y-n-j')
+    {
+        //"Y-n-j"为月和日前面不带0
+        $date_format_str = date($format, $date);
+        list($year, $month, $day) = explode('-', $date_format_str);
+        $capital = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十', '二十一', '二十二', '二十三', '二十四', '二十五', '二十六', '二十七', '二十八', '二十九', '三十', '三十一'];
+        $date_array = ['0' => '', '1' => '', '2' => ''];
+        foreach (str_split($year) as $k => $v) {
+            $date_array[0] .= $capital[$v];     //年
+        }
+
+        $date_array[1] = $capital[$month];  //月
+        $date_array[2] = $capital[$day];    //日
+
+        return $date_array;
+    }
 }

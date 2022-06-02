@@ -459,7 +459,6 @@ class ArrayTool
         return (($second2 - $second1) / 86400) + 1;
     }
 
-
     /**
      * 快速排序法
      *
