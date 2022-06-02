@@ -2,6 +2,9 @@
 
 namespace chanyu\Snowflake;
 
+use chanyu\Tools\GetMacTool;
+use chanyu\Tools\StringTool;
+
 class SnowflakeNew
 {
     const TWEPOCH = 12888349746579;
