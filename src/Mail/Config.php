@@ -15,6 +15,7 @@ class Config
         'password' => '',                                 //SMTP password
         'from'     => '',                                 //send address
         'name'     => '',                                 //send name
+        'charset'  => 'UTF-8',                            //The character set of the message.
     ];
 
     /**

@@ -59,7 +59,7 @@ class Mailer extends Config implements Contract
             if ($this->config['type'] == 'smtp') {
                 $this->mail->isSMTP();                                                    //Send using SMTP
             }
-
+            $this->mail->CharSet = $this->config['charset'];                              //Set character of the message.
             $this->mail->Host = $this->config['host'];                                    //Set the SMTP server to send through
             $this->mail->SMTPAuth = $this->config['auth'];                                //Enable SMTP authentication
             $this->mail->Username = $this->config['username'];                            //SMTP username
