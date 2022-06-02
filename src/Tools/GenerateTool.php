@@ -1,6 +1,6 @@
 <?php
 
-namespace chanyu\Tools;
+namespace chanyu\utils\Tools;
 
 class GenerateTool
 {

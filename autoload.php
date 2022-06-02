@@ -6,7 +6,7 @@ if (file_exists(dirname(__FILE__) . '/../../autoload.php')) {
 
 function classLoader($class)
 {
-    $path = str_replace(['chanyu\\', '\\'], ['', DIRECTORY_SEPARATOR], $class);
+    $path = str_replace(['chanyu\\utils\\', '\\'], ['', DIRECTORY_SEPARATOR], $class);
 
     $file = __DIR__ . '/src/' . $path . '.php';
 

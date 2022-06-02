@@ -1,6 +1,6 @@
 <?php
 
-namespace chanyu\Tools;
+namespace chanyu\utils\Tools;
 
 /**
  * 获取地址配置信息

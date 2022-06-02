@@ -1,9 +1,9 @@
 <?php
 
-namespace chanyu\Snowflake;
+namespace chanyu\utils\Snowflake;
 
-use chanyu\Tools\GetMacTool;
-use chanyu\Tools\StringTool;
+use chanyu\utils\Tools\GetMacTool;
+use chanyu\utils\Tools\StringTool;
 
 class SnowflakeNew
 {
