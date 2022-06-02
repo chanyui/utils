@@ -1,7 +1,7 @@
 <?php
 
-if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
-    require_once dirname(__FILE__) . '/vendor/autoload.php';
+if (file_exists(dirname(__FILE__) . '/../../autoload.php')) {
+    require_once dirname(__FILE__) . '/../../autoload.php';
 }
 
 function classLoader($class)
